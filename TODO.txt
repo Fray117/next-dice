@@ -1,0 +1,71 @@
+Minigame Website:
+- Register
+  - Username
+  - Email
+  - Password
+- Login
+  - Username
+  - Password
+
+Login -> Generate JWT Token
+
+Player joined Game:
+  1 -> Each player gaven M dices
+  2 -> Every player roll dice simultaneously
+  3 -> Each player validate rolled dice with evaluation:
+     -> Dice value on 6 withdrawn and add score to related player
+     -> Dice value on 1 transfer to next player (Ex: 1st player give 1 valued dice to 2nd player)
+     -> Any other value kept
+  4 -> Repeat to 2nd steps until 1 player left
+     -> Player with no more dice are considered game over
+  5 -> Player with highest score are considered as winner
+
+Table:
+
+- Users -
++----------+-----------+---------+-------------+
+| name     | type      | key     | description |
++----------+-----------+---------+-------------+
+| id       | integer   | PRIMARY |             |
+| username | string    | UNIQUE  |             |
+| email    | string    | UNIQUE  |             |
+| password | string    |         |             |
+| created  | timestamp |         |             |
+| updated  | timestamp |         |             |
++----------+-----------+---------+-------------+
+
+- Room_Master -
++----------+-----------+---------+-------------+---------+
+| name     | type      | index   | belongs_to  | default |
++----------+-----------+---------+-------------+---------|
+| id       | integer   | PRIMARY |             |         |
+| name     | string    |         |             |         |
+| owner    | integer   |         | Users.id    |         |
+| dice     | integer   |         |             | 4       |
+| created  | timestamp |         |             |         |
+| updated  | timestamp |         |             |         |
++----------+-----------+---------+-------------+---------+
+
+- Room_Players -
++----------+-----------+---------+-------------+
+| name     | type      | index   | belongs_to  |
++----------+-----------+---------+-------------+
+| id       | integer   | PRIMARY |             |
+| users_id | integer   |         | Users.id    |
+| score    | integer   |         |             |
+| created  | timestamp |         |             |
+| updated  | timestamp |         |             |
++----------+-----------+---------+-------------+
+
+- Room_Progress -
++----------+-----------+---------+-----------------+
+| name     | type      | index   | belongs_to      |
++----------+-----------+---------+-----------------+
+| id       | integer   | PRIMARY |                 |
+| owner    | integer   |         | Users.id        |
+| holder   | integer   |         | Room_Players.id |
+| value    | integer   |         |                 |
+| created  | timestamp |         |                 |
+| updated  | timestamp |         |                 |
++----------+-----------+---------+-----------------+
+
