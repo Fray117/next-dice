@@ -1,14 +1,11 @@
 import { getSession, useSession } from "next-auth/react"
-import { Fragment } from 'react'
 import {
 	HeartIcon,
 	CheckIcon,
 	XIcon,
-	ChevronDownIcon,
 	StatusOnlineIcon,
 	UserIcon,
 } from '@heroicons/react/solid'
-import { Menu, Transition } from '@headlessui/react'
 import { useRouter } from "next/router"
 
 function classNames(...classes) {
