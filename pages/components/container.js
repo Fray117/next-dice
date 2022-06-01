@@ -4,19 +4,20 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { UserIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
-const navigation = [
-	{ name: 'Home', href: '#', current: true },
-	{ name: 'Archived', href: '#', current: false },
-]
-const userNavigation = [
-	{ name: 'Sign out', href: '#' },
-]
+import { useRouter } from 'next/router'
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(' ')
 }
 
 export default function Container(props) {
+	const router = useRouter()
+
+	const navigation = [
+		{ name: 'Home', href: '/', current: router.pathname === '/' },
+		{ name: 'Archived', href: '/room/history', current: router.pathname === '/room/history' },
+	]
+
 	return (
 		<>
 			{/*
