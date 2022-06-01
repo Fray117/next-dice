@@ -1,8 +1,8 @@
-import Head from 'next/head'
+import { getCsrfToken } from "next-auth/react"
 
 import { LockClosedIcon } from '@heroicons/react/solid'
 
-export default function Login() {
+export default function Login({ csrfToken }) {
 	return (
 		<>
 			{/*
@@ -24,7 +24,8 @@ export default function Login() {
 							</a>
 						</p>
 					</div>
-					<form className="mt-8 space-y-6" action="#" method="POST">
+					<form className="mt-8 space-y-6" action="/api/auth/callback/credentials" method="POST">
+						<input name="csrfToken" type="hidden" defaultValue={csrfToken} />
 						<input type="hidden" name="remember" defaultValue="true" />
 						<div className="rounded-md shadow-sm -space-y-px">
 							<div>
@@ -73,4 +74,12 @@ export default function Login() {
 			</div>
 		</>
 	)
+}
+
+export async function getServerSideProps(context) {
+	return {
+		props: {
+			csrfToken: await getCsrfToken(context),
+		},
+	}
 }
