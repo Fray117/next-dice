@@ -19,12 +19,12 @@ export default function Signup({ csrfToken }) {
 						<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign up your account</h2>
 						<p className="mt-2 text-center text-sm text-gray-600">
 							Or{' '}
-							<a href="/login" className="font-medium text-red-600 hover:text-red-500">
+							<a href="/auth/login" className="font-medium text-red-600 hover:text-red-500">
 								login with existing account
 							</a>
 						</p>
 					</div>
-					<form className="mt-8 space-y-6" action="#" method="POST">
+					<form className="mt-8 space-y-6" action="/api/auth/signup" method="POST">
 						<input name="csrfToken" type="hidden" defaultValue={csrfToken} />
 						<input type="hidden" name="remember" defaultValue="true" />
 						<div className="rounded-md shadow-sm -space-y-px">
@@ -52,7 +52,7 @@ export default function Signup({ csrfToken }) {
 									type="email"
 									autoComplete="email"
 									required
-									className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
+									className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
 									placeholder="Email address"
 								/>
 							</div>

@@ -7,11 +7,7 @@ export default NextAuth({
 	providers: [
 		CredentialsProvider({
 			async authorize(credentials, req) {
-				const user = await db.users.findByPk(1)//findOne({ where: { username: credentials.username } })
-
-				// bcrypt.hash(credentials.password, 10, (err, hash) => {
-				// 	// Store hash in your password DB.
-				// })
+				const user = await db.users.findOne({ where: { username: credentials.username } })
 
 				if (user) {
 					await bcrypt.compare(credentials.password, user.password, (err, result) => {
@@ -28,6 +24,16 @@ export default NextAuth({
 			}
 		})
 	],
+
+	callbacks: {
+		async session({ session, user, token }) {
+			const users = await db.users.findOne({ where: { email: session.user.email } })
+
+			session.user.id = users.id
+
+			return session
+		},
+	},
 
 	session: {
 		jwt: true,

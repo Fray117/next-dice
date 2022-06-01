@@ -19,7 +19,7 @@ export default function Login({ csrfToken }) {
 						<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
 						<p className="mt-2 text-center text-sm text-gray-600">
 							Or{' '}
-							<a href="/signup" className="font-medium text-red-600 hover:text-red-500">
+							<a href="/auth/signup" className="font-medium text-red-600 hover:text-red-500">
 								register a new account
 							</a>
 						</p>
