@@ -10,11 +10,12 @@ module.exports = (sequelize, DataTypes) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			// define association here
+			this.hasMany(models.room_progress, { foreignKey: 'holder', as: 'dices' })
 		}
 	}
 	room_players.init({
 		users_id: DataTypes.INTEGER,
+		room_id: DataTypes.INTEGER,
 		score: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
