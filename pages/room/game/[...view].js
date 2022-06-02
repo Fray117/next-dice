@@ -89,6 +89,8 @@ export default function GameStart() {
 
 	let my, waiting
 
+	if (status !== 'authenticated') return false
+
 	if (amIAlreadyJoined(data.data.players, session)) {
 		my = data.data.players.find(player => player.users_id === session.user.id)
 
@@ -98,9 +100,9 @@ export default function GameStart() {
 	return (
 		<Secured>
 			{/* loop list from data */}
-			<div className="flex gap-8">
+			<div className="flex flex-col gap-8">
 				{data.data.players.map((player, index) => (
-					<div key="player">
+					<div key={index}>
 						<div className="flex flex-col w-full">
 							<GameComponent game={data} player={player}></GameComponent>
 						</div>
@@ -111,30 +113,6 @@ export default function GameStart() {
 			{
 				amIAlreadyJoined(data.data.players, session) ? (
 					<div className="w-full mx-auto py-3 flex gap-x-8">
-						{
-							waiting ?
-								(
-									<div className="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-48">
-										<Link href={`/api/rooms/players/status/${my.id}`}>
-											<a
-												className="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium bg-red-600 text-white hover:text-red-50"
-											>
-												Ready
-											</a>
-										</Link>
-									</div>
-								) : (
-									<div className="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-48">
-										<Link href="#">
-											<a
-												className="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium bg-red-300 cursor-wait text-white hover:text-red-50"
-											>
-												Waiting for others
-											</a>
-										</Link>
-									</div>
-								)
-						}
 						{
 							(my.users_id === data.data.owner) ?
 								(
